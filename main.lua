@@ -1,8 +1,5 @@
 require 'drystal'
 
-local font = require 'truetype'
-local physic = require 'physic'
-local particle = require 'particle'
 local timer = require 'hump/timer'
 
 local ct = require 'content'
@@ -11,7 +8,6 @@ width, height = 800, 600
 
 local state = {}
 
-local gamestate = require 'game'
 local menustate = require 'menu'
 
 --[[===================

@@ -1,4 +1,5 @@
 local font = require 'truetype'
+local storage = require 'storage'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local gamestate = require 'game'
@@ -80,7 +81,10 @@ local harding = false
 function menustate:key_press(key)
 	if key == 'return' or key == 'space' then
 		dostuff = false
-		gamestate:change_level(1)
+		local level = 1
+		local datas = storage.load('chronored')
+		if datas then level = datas.level end
+		gamestate:change_level(level)
 		set_state(gamestate)
 	end
 	if key == 'h' then

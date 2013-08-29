@@ -1,5 +1,6 @@
 local physic = require 'physic'
 local font = require 'truetype'
+local storage = require 'storage'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local ship = require 'ship'
@@ -36,7 +37,7 @@ physic.on_collision(
 )
 
 function gamestate:change_level(lvlnumber)
-	if self.level ~= 0 then
+	if self.ship.body then
 		local oldlvl = ct.levels[self.level]
 		oldlvl:destroy()
 		self.ship:destroy()
@@ -205,6 +206,7 @@ function gamestate:update(dt)
 		if self.level < ct.max_level then
 			ct.play('next_level')
 			self:change_level(self.level + 1)
+			storage.save('chronored', {level=self.level})
 		else
 			set_state(require 'ending')
 		end
