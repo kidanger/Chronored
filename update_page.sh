@@ -2,7 +2,7 @@
 
 cd ../drystal
 ./runner.py clean
-./runner.py Chronored repack
+./runner.py chronored repack
 cd LD27
 
 git checkout gh-pages || exit
