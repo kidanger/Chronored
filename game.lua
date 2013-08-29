@@ -239,7 +239,7 @@ function gamestate:key_press(key)
 	elseif key == 'p' then
 		self.pause = not self.pause
 	end
-	if key == 'f5' then
+	if key == 'f4' then
 		self:change_level(self.level - 1)
 	elseif key == 'f6' then
 		self:change_level(self.level + 1)
