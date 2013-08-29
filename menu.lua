@@ -42,14 +42,6 @@ end
 function menustate:update(dt)
 end
 
-local function coolround(num)
-	local n = math.floor(num*10)/10
-	if n == 0 and num ~= 0 then n = '0.1' end
-	if n == math.floor(n) then
-		return n .. '.0'
-	end
-	return n
-end
 function menustate:draw()
 	set_color(self.r, self.g, self.b)
 	set_alpha(255)
@@ -83,13 +75,16 @@ function menustate:key_press(key)
 		dostuff = false
 		local level = 1
 		local datas = storage.load('chronored')
-		if datas then level = datas.level end
+		if datas then
+			level = datas.level
+			gamestate.hard = datas.hard
+		end
 		gamestate:change_level(level)
 		set_state(gamestate)
 	end
 	if key == 'h' then
 		harding = true
-		timer.add(2, function()
+		timer.add(0.5, function()
 			if harding then
 				gamestate.hard = not gamestate.hard
 				harding = false

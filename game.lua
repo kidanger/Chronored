@@ -37,6 +37,8 @@ physic.on_collision(
 )
 
 function gamestate:change_level(lvlnumber)
+	storage.save('chronored', {level=lvlnumber, hard=self.hard})
+
 	if self.ship.body then
 		local oldlvl = ct.levels[self.level]
 		oldlvl:destroy()
@@ -206,7 +208,6 @@ function gamestate:update(dt)
 		if self.level < ct.max_level then
 			ct.play('next_level')
 			self:change_level(self.level + 1)
-			storage.save('chronored', {level=self.level})
 		else
 			set_state(require 'ending')
 		end
@@ -238,10 +239,11 @@ function gamestate:key_press(key)
 	elseif key == 'p' then
 		self.pause = not self.pause
 	end
-	if key == 'f6' then
-		self.arrived = true
-	end
-	if key == 'f7' then
+	if key == 'f5' then
+		self:change_level(self.level - 1)
+	elseif key == 'f6' then
+		self:change_level(self.level + 1)
+	elseif key == 'f7' then
 		self.ship.health = 0
 	end
 end

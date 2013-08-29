@@ -151,7 +151,7 @@ function Level:draw(offsetx, offsety)
 end
 
 local function load_level(name, hue, angle)
-	local level = require(name)
+	local level = require('levels/' .. name)
 
 	local function gencolors()
 		local h = (hue+math.random(-5,5)) % 360

@@ -39,35 +39,35 @@ function ct.load()
 
 	--ct.sounds.consume_fuel = load_sound('consume_fuel.wav')
 	ct.sounds.collide = {
-		load_sound('collide1.wav'),
-		load_sound('collide2.wav'),
-		load_sound('collide3.wav'),
-		load_sound('collide4.wav'),
+		load_sound('sounds/collide1.wav'),
+		load_sound('sounds/collide2.wav'),
+		load_sound('sounds/collide3.wav'),
+		load_sound('sounds/collide4.wav'),
 	}
 	ct.sounds.fire = {
-		load_sound('fire1.wav'),
+		load_sound('sounds/fire1.wav'),
 	}
 	ct.sounds.littlehurt = {
-		load_sound('littlehurt1.wav'),
+		load_sound('sounds/littlehurt1.wav'),
 	}
 	ct.sounds.out = {
-		load_sound('out1.wav'),
+		load_sound('sounds/out1.wav'),
 	}
 	ct.sounds.explode = {
-		load_sound('explode1.wav'),
-		load_sound('explode2.wav'),
+		load_sound('sounds/explode1.wav'),
+		load_sound('sounds/explode2.wav'),
 	}
 	ct.sounds.next_level = {
-		load_sound('next_level.wav'),
+		load_sound('sounds/next_level.wav'),
 	}
 	ct.sounds.ending = {
-		load_sound('ending.wav'),
+		load_sound('sounds/ending.wav'),
 	}
 	ct.sounds.regen_health = {
-		load_sound('regen_health.wav'),
+		load_sound('sounds/regen_health.wav'),
 	}
 	ct.sounds.regen_fuel = {
-		load_sound('regen_fuel.wav'),
+		load_sound('sounds/regen_fuel.wav'),
 	}
 end
 
