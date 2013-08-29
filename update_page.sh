@@ -3,7 +3,7 @@
 cd ../drystal
 ./runner.py clean
 ./runner.py chronored repack
-cd LD27
+cd chronored
 
 git checkout gh-pages || exit
 cp ../drystal/build-web/*compress* .
