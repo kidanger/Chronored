@@ -239,9 +239,9 @@ function gamestate:key_press(key)
 	elseif key == 'p' then
 		self.pause = not self.pause
 	end
-	if key == 'f4' then
+	if key == 'b' then
 		self:change_level(self.level - 1)
-	elseif key == 'f6' then
+	elseif key == 'n' then
 		self:change_level(self.level + 1)
 	elseif key == 'f7' then
 		self.ship.health = 0
