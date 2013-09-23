@@ -70,14 +70,16 @@ function Level:destroy()
 	end
 end
 
-function Level:draw(offsetx, offsety)
+function Level:draw()
 	local ct = require 'content'
 	if not self.buffer then
+
+		local oldcamerax, oldcameray = drystal.camera.x, drystal.camera.y
+		drystal.camera.x, drystal.camera.y = 0, 0
 
 		self.buffer = drystal.new_buffer()
 		drystal.use_buffer(self.buffer)
 
-		drystal.push_offset(0, 0)
 		local R = self.ratio
 
 		drystal.set_alpha(255)
@@ -111,13 +113,12 @@ function Level:draw(offsetx, offsety)
 			drystal.draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
 		end
 
-		drystal.pop_offset()
-
 		drystal.use_buffer()
+		drystal.camera.x, drystal.camera.y = oldcamerax, oldcameray
 	end
 
 	local R = self.ratio
-	drystal.draw_buffer(self.buffer, offsetx, offsety)
+	drystal.draw_buffer(self.buffer)
 
 	local st = self.start
 	local sprite = ct.sprites.start

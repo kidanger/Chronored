@@ -128,12 +128,12 @@ function gamestate:draw()
 	local sx = self.scrollx - self.ship:get_screen_x() + width/2
 	local sy = self.scrolly - self.ship:get_screen_y() + height/2
 
-	drystal.push_offset(sx, sy)
+	drystal.camera.x, drystal.camera.y = sx, sy
 
-	lvl:draw(-sx*2, sy*2)
+	lvl:draw()
 	self.ship:draw()
 
-	drystal.pop_offset()
+	drystal.camera.x, drystal.camera.y = 0, 0
 
 	drystal.set_alpha(255)
 	drystal.set_color(0, 0, 0)
