@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local font = require 'truetype'
 
 local ct = {
@@ -24,14 +25,14 @@ local ct = {
 
 function ct.play(str)
 	local table = ct.sounds[str]
-	play_sound(table[math.random(1, #table)])
+	drystal.play_sound(table[math.random(1, #table)])
 end
 
 function ct.load()
 	ct.max_level = #ct.levels
 
-	ct.images.spritesheet = load_surface('spritesheet.png')
-	draw_from(ct.images.spritesheet)
+	ct.images.spritesheet = drystal.load_surface('spritesheet.png')
+	drystal.draw_from(ct.images.spritesheet)
 
 	ct.fonts.small = font.load('styllo.ttf', 20)
 	ct.fonts.normal = font.load('styllo.ttf', 32)
@@ -39,35 +40,35 @@ function ct.load()
 
 	--ct.sounds.consume_fuel = load_sound('consume_fuel.wav')
 	ct.sounds.collide = {
-		load_sound('sounds/collide1.wav'),
-		load_sound('sounds/collide2.wav'),
-		load_sound('sounds/collide3.wav'),
-		load_sound('sounds/collide4.wav'),
+		drystal.load_sound('sounds/collide1.wav'),
+		drystal.load_sound('sounds/collide2.wav'),
+		drystal.load_sound('sounds/collide3.wav'),
+		drystal.load_sound('sounds/collide4.wav'),
 	}
 	ct.sounds.fire = {
-		load_sound('sounds/fire1.wav'),
+		drystal.load_sound('sounds/fire1.wav'),
 	}
 	ct.sounds.littlehurt = {
-		load_sound('sounds/littlehurt1.wav'),
+		drystal.load_sound('sounds/littlehurt1.wav'),
 	}
 	ct.sounds.out = {
-		load_sound('sounds/out1.wav'),
+		drystal.load_sound('sounds/out1.wav'),
 	}
 	ct.sounds.explode = {
-		load_sound('sounds/explode1.wav'),
-		load_sound('sounds/explode2.wav'),
+		drystal.load_sound('sounds/explode1.wav'),
+		drystal.load_sound('sounds/explode2.wav'),
 	}
 	ct.sounds.next_level = {
-		load_sound('sounds/next_level.wav'),
+		drystal.load_sound('sounds/next_level.wav'),
 	}
 	ct.sounds.ending = {
-		load_sound('sounds/ending.wav'),
+		drystal.load_sound('sounds/ending.wav'),
 	}
 	ct.sounds.regen_health = {
-		load_sound('sounds/regen_health.wav'),
+		drystal.load_sound('sounds/regen_health.wav'),
 	}
 	ct.sounds.regen_fuel = {
-		load_sound('sounds/regen_fuel.wav'),
+		drystal.load_sound('sounds/regen_fuel.wav'),
 	}
 end
 

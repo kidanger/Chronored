@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local physic = require 'physic'
 local particle = require 'particle'
 local timer = require 'hump/timer'
@@ -145,11 +146,11 @@ function ship:destroy()
 end
 
 function ship:draw()
-	set_alpha(255)
+	drystal.set_alpha(255)
 	if self.dying then
-		set_alpha(120)
+		drystal.set_alpha(120)
 	end
-	set_color(self.color)
+	drystal.set_color(self.color)
 
 	local x, y = self.body:get_position()
 	local angle = self.body:get_angle()
@@ -168,12 +169,12 @@ function ship:draw()
 	if angle > math.pi/2 and angle < math.pi*3/2 then
 		transform.hfactor = transform.hfactor * -1
 	end
-	draw_sprite(sprite, (x-self.w/2)*R, (y-self.h/2)*R, transform)
+	drystal.draw_sprite(sprite, (x-self.w/2)*R, (y-self.h/2)*R, transform)
 
-	local sx, sy = get_offset()
-	set_alpha(150)
+	local sx, sy = drystal.get_offset()
+	drystal.set_alpha(150)
 	self.fuel_part:draw(sx, sy)
-	set_alpha(255)
+	drystal.set_alpha(255)
 	self.collide_part:draw(sx, sy)
 	self.explode_part:draw(sx, sy)
 end

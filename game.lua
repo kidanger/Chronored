@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local physic = require 'physic'
 local font = require 'truetype'
 local storage = require 'storage'
@@ -120,50 +121,50 @@ end
 function gamestate:draw()
 	local lvl = ct.levels[self.level]
 
-	set_alpha(255)
-	set_color(lvl.background)
-	draw_background()
+	drystal.set_alpha(255)
+	drystal.set_color(lvl.background)
+	drystal.draw_background()
 
 	local sx = self.scrollx - self.ship:get_screen_x() + width/2
 	local sy = self.scrolly - self.ship:get_screen_y() + height/2
 
-	push_offset(sx, sy)
+	drystal.push_offset(sx, sy)
 
 	lvl:draw(-sx*2, sy*2)
 	self.ship:draw()
 
-	pop_offset()
+	drystal.pop_offset()
 
-	set_alpha(255)
-	set_color(0, 0, 0)
+	drystal.set_alpha(255)
+	drystal.set_color(0, 0, 0)
 	font.use(ct.fonts.small)
 	font.draw('Level: ' .. self.level .. '/' .. ct.max_level, 20, 3)
 	do -- draw health
-		set_alpha(200)
-		set_color(0, 0, 0)
+		drystal.set_alpha(200)
+		drystal.set_color(0, 0, 0)
 		local x, y = 20, 20
 		local w = 140
 		local h = 20
-		draw_rect(x, y, w, h)
+		drystal.draw_rect(x, y, w, h)
 
-		set_color(120, 120, 120)
+		drystal.set_color(120, 120, 120)
 		x, y = x + 2, y + 2
 		w = w - 4
 		h = h - 4
-		draw_rect(x, y, w, h)
+		drystal.draw_rect(x, y, w, h)
 
-		set_color(210, 0, 0)
-		draw_rect(x, y, math.ceil(w*(self.ship.health / self.ship.max_health)), h)
+		drystal.set_color(210, 0, 0)
+		drystal.draw_rect(x, y, math.ceil(w*(self.ship.health / self.ship.max_health)), h)
 		font.use(ct.fonts.small)
-		set_color(0, 0, 0)
+		drystal.set_color(0, 0, 0)
 		font.draw_align('health: ' .. coolround(self.ship.health), x + w/2, y-1, 'center')
 	end
 
 	do -- draw fuel
 		font.use(ct.fonts.big)
 		--set_color(math.min(255, (1 - self.ship.fuel/self.ship.max_fuel)*255), 0, 0)
-		set_color(0,0,0)
-		set_alpha(math.min(255, math.max(100, (1 - self.ship.fuel/2/self.ship.max_fuel)*255)))
+		drystal.set_color(0,0,0)
+		drystal.set_alpha(math.min(255, math.max(100, (1 - self.ship.fuel/2/self.ship.max_fuel)*255)))
 		local text = 'Fuel: ' .. coolround(self.ship.fuel) .. ' seconds'
 		font.draw_align(text, width/2, 100, 'center')
 	end
@@ -173,12 +174,12 @@ function gamestate:draw()
 		font.use_color(true)
 		local _, h = font.sizeof(self.display_text)
 		local llines = lines(self.display_text)
-		set_color(255,255,255)
-		set_alpha(200)
-		draw_rect((width-self.text_width)/2, height - 130 + h+4, self.text_width, (h+4)*#llines+h/4)
+		drystal.set_color(255,255,255)
+		drystal.set_alpha(200)
+		drystal.draw_rect((width-self.text_width)/2, height - 130 + h+4, self.text_width, (h+4)*#llines+h/4)
 		if self.text_width >= self.text_width_dst*.85 then
-			set_color(0,0,0)
-			set_alpha(200)
+			drystal.set_color(0,0,0)
+			drystal.set_alpha(200)
 			for i, l in ipairs(llines) do
 				font.draw_align(l, width/2, height - 130 + (h+4)*i, 'center')
 			end
@@ -187,11 +188,11 @@ function gamestate:draw()
 	end
 
 	if self.pause then
-		set_alpha(150)
-		set_color(0, 0, 0)
-		draw_rect(0, 0, width, height)
+		drystal.set_alpha(150)
+		drystal.set_color(0, 0, 0)
+		drystal.draw_rect(0, 0, width, height)
 
-		set_alpha(255)
+		drystal.set_alpha(255)
 		font.use(ct.fonts.big)
 		font.use_color(true)
 		font.draw_align('Pause', width/2, height*.4, 'center')

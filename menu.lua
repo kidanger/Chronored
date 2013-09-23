@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local font = require 'truetype'
 local storage = require 'storage'
 local timer = require 'hump/timer'
@@ -43,12 +44,12 @@ function menustate:update(dt)
 end
 
 function menustate:draw()
-	set_color(self.r, self.g, self.b)
-	set_alpha(255)
-	draw_background()
+	drystal.set_color(self.r, self.g, self.b)
+	drystal.set_alpha(255)
+	drystal.draw_background()
 
-	set_alpha(math.min(255, self.r+self.g+self.b))
-	set_color(255, 255, 255)
+	drystal.set_alpha(math.min(255, self.r+self.g+self.b))
+	drystal.set_color(255, 255, 255)
 	local transform = {
 		angle=0,
 		wfactor=0.7,
@@ -57,10 +58,10 @@ function menustate:draw()
 	local sprite = ct.sprites.title
 	local w = sprite.w * transform.wfactor
 	local h = sprite.h * transform.hfactor
-	draw_sprite(sprite, (width - w) / 2, (height - h) / 2, transform)
+	drystal.draw_sprite(sprite, (width - w) / 2, (height - h) / 2, transform)
 
-	set_color(255,255,255)
-	set_alpha(self.text_alpha)
+	drystal.set_color(255,255,255)
+	drystal.set_alpha(self.text_alpha)
 	font.use(ct.fonts.big)
 	local text = 'Press enter to play'
 	if gamestate.hard then

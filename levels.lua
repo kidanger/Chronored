@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local physic = require 'physic'
 local hsl = require 'hsl'
 local Turret = require 'turret'
@@ -73,13 +74,13 @@ function Level:draw(offsetx, offsety)
 	local ct = require 'content'
 	if not self.buffer then
 
-		self.buffer = new_buffer()
-		use_buffer(self.buffer)
+		self.buffer = drystal.new_buffer()
+		drystal.use_buffer(self.buffer)
 
-		push_offset(0, 0)
+		drystal.push_offset(0, 0)
 		local R = self.ratio
 
-		set_alpha(255)
+		drystal.set_alpha(255)
 		local start = self.start
 		local function sign() return math.random(1, 2) == 1 and 1 or -1 end
 		for i = 1, 40 do
@@ -87,10 +88,10 @@ function Level:draw(offsetx, offsety)
 			local y = math.random(start.y-20, start.y+20)
 			local s = math.random(85, 95) / 100
 			local l = math.random(85, 95) / 100
-			set_color(hsl((self.hue+math.random(-5, 5))%360, s, l))
+			drystal.set_color(hsl((self.hue+math.random(-5, 5))%360, s, l))
 			local x2, y2 = x+math.random(50, 100)*sign(), y+math.random(90, 170)*sign()
 			local x3, y3 = x+math.random(90, 170)*sign(), y+math.random(50, 100)*sign()
-			draw_triangle(x*R, y*R, x2*R, y2*R, x3*R, y3*R)
+			drystal.draw_triangle(x*R, y*R, x2*R, y2*R, x3*R, y3*R)
 		end
 
 		for i, b in pairs(self.boxes) do
@@ -99,52 +100,52 @@ function Level:draw(offsetx, offsety)
 			local y = b.y * R
 			local outline = 4
 
-			set_color(b.outoutcolor)
-			draw_rect(x, y, w, h)
+			drystal.set_color(b.outoutcolor)
+			drystal.draw_rect(x, y, w, h)
 
-			set_color(b.outcolor)
-			draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
+			drystal.set_color(b.outcolor)
+			drystal.draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
 
 			outline = outline * 2
-			set_color(b.color)
-			draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
+			drystal.set_color(b.color)
+			drystal.draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
 		end
 
-		pop_offset()
+		drystal.pop_offset()
 
-		use_buffer()
+		drystal.use_buffer()
 	end
 
 	local R = self.ratio
-	draw_buffer(self.buffer, offsetx, offsety)
+	drystal.draw_buffer(self.buffer, offsetx, offsety)
 
 	local st = self.start
 	local sprite = ct.sprites.start
-	set_color(st.color)
-	draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
+	drystal.set_color(st.color)
+	drystal.draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
 
 	local st = self.arrival
 	local sprite = ct.sprites.arrival
-	set_color(st.color)
-	draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
+	drystal.set_color(st.color)
+	drystal.draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
 
 	for _, c in ipairs(self.capsules) do
 		if c.is_visible then
 			local sprite
 			if c.type == 'fuel' then
 				sprite = ct.sprites.fuel_capsule
-				set_color(255,255,255)
+				drystal.set_color(255,255,255)
 			else
 				sprite = ct.sprites.health_capsule
-				set_color(255, 0, 0)
+				drystal.set_color(255, 0, 0)
 			end
-			draw_sprite(sprite, c.x*R, c.y*R)
+			drystal.draw_sprite(sprite, c.x*R, c.y*R)
 		end
 	end
 	for _, t in ipairs(self.turrets) do
 		t:draw()
 	end
-	set_alpha(255)
+	drystal.set_alpha(255)
 	for _, t in ipairs(self.turrets) do
 		t:draw2()
 	end

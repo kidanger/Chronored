@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local physic = require 'physic'
 local particle = require 'particle'
 
@@ -27,25 +28,25 @@ function Turret:draw()
 		hfactor=self.size*R / sprite.h,
 	}
 
-	set_color(self.color)
-	draw_sprite(sprite, self.x*R, self.y*R, transform)
+	drystal.set_color(self.color)
+	drystal.draw_sprite(sprite, self.x*R, self.y*R, transform)
 
 	local sprite = ct.sprites.turret_canon
-	set_color(255,255,255)
+	drystal.set_color(255,255,255)
 	transform.angle = self.angle
-	draw_sprite(sprite, self.x*R, self.y*R, transform)
+	drystal.draw_sprite(sprite, self.x*R, self.y*R, transform)
 
-	set_color(255,255,255)
+	drystal.set_color(255,255,255)
 	for _, r in ipairs(self.rockets) do
 		local sprite = ct.sprites.missile
 		local x, y = r.body:get_position()
 		local angle = r.body:get_angle()
-		draw_sprite_rotated(sprite, x*R-sprite.w/2, y*R-sprite.h/2, angle)
+		drystal.draw_sprite_rotated(sprite, x*R-sprite.w/2, y*R-sprite.h/2, angle)
 	end
 end
 
 function Turret:draw2()
-	local dx, dy = get_offset()
+	local dx, dy = drystal.get_offset()
 	for _, r in ipairs(self.rockets) do
 		r.part:draw(dx, dy)
 	end
