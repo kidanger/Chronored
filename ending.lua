@@ -1,3 +1,4 @@
+local drystal = require 'drystal'
 local font = require 'truetype'
 local timer = require 'hump/timer'
 local ct = require 'content'
@@ -58,29 +59,29 @@ end
 function endingstate:draw()
 	if self.fading then
 		gamestate:draw()
-		set_color(0, 0, 0)
-		set_alpha(self.alpha)
-		draw_rect(0, 0, width, height)
+		drystal.set_color(0, 0, 0)
+		drystal.set_alpha(self.alpha)
+		drystal.draw_rect(0, 0, width, height)
 		return
 	end
 
-	set_color(0, 0, 0)
-	set_alpha(255)
-	draw_background()
+	drystal.set_color(0, 0, 0)
+	drystal.set_alpha(255)
+	drystal.draw_background()
 
-	set_color(255, 255, 255)
+	drystal.set_color(255, 255, 255)
 	font.use(ct.fonts.big)
 	font.draw_align('Thanks for playing', self.thanksx, self.thanksy, 'center')
 
 	font.use(ct.fonts.normal)
 	font.draw_align('Made by kidanger, for LudumDare #27', self.madebyx, self.madebyy, 'center')
 
-	set_alpha(self.alphasecs)
+	drystal.set_alpha(self.alphasecs)
 	font.use(ct.fonts.normal)
 	font.draw_align(self.prefix .. coolround(self.seconds) .. ' seconds', self.madebyx, self.madebyy + 50, 'center')
 
 	if self.seconds < 5 then
-		set_alpha(self.alphasecs)
+		drystal.set_alpha(self.alphasecs)
 		font.use(ct.fonts.normal)
 		font.draw_align('Hardmode enabled. Theme: 5 seconds.', self.madebyx, self.madebyy + 100, 'center')
 	end

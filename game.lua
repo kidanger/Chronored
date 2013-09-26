@@ -249,7 +249,11 @@ function gamestate:key_press(key)
 			self:change_level(self.level - 1)
 		end
 	elseif key == 'n' then
-		self:change_level(self.level + 1)
+		if self.level < ct.max_level then
+			self:change_level(self.level + 1)
+		else
+			set_state(require 'ending')
+		end
 	elseif key == 'f7' then
 		self.ship.health = 0
 	end
