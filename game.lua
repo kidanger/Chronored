@@ -129,11 +129,13 @@ function gamestate:draw()
 	local sy = self.scrolly - self.ship:get_screen_y() + height/2
 
 	drystal.camera.x, drystal.camera.y = sx, sy
+	drystal.camera.angle = self.ship.body:get_angle() + math.pi/2
 
 	lvl:draw()
 	self.ship:draw()
 
 	drystal.camera.x, drystal.camera.y = 0, 0
+	drystal.camera.angle = 0
 
 	drystal.set_alpha(255)
 	drystal.set_color(0, 0, 0)
