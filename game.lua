@@ -6,6 +6,8 @@ local timer = require 'hump/timer'
 local ct = require 'content'
 local ship = require 'ship'
 
+local zoom_level = 1
+
 local gamestate = {
 	level=0,
 	ship=ship,
@@ -130,12 +132,12 @@ function gamestate:draw()
 
 	drystal.camera.x, drystal.camera.y = sx, sy
 	drystal.camera.angle = self.ship.body:get_angle() + math.pi/2
+	drystal.camera.zoom = zoom_level
 
 	lvl:draw()
 	self.ship:draw()
 
-	drystal.camera.x, drystal.camera.y = 0, 0
-	drystal.camera.angle = 0
+	drystal.camera.reset()
 
 	drystal.set_alpha(255)
 	drystal.set_color(0, 0, 0)
@@ -243,7 +245,9 @@ function gamestate:key_press(key)
 		self.pause = not self.pause
 	end
 	if key == 'b' then
-		self:change_level(self.level - 1)
+		if self.level ~= 1 then
+			self:change_level(self.level - 1)
+		end
 	elseif key == 'n' then
 		self:change_level(self.level + 1)
 	elseif key == 'f7' then
@@ -264,6 +268,10 @@ local scrolling = false
 function gamestate:mouse_press(x, y, b)
 	if b == 3 then
 		scrolling = true
+	elseif b == 4 then
+		zoom_level = zoom_level * 1.2
+	elseif b == 5 then
+		zoom_level = zoom_level / 1.2
 	end
 end
 function gamestate:mouse_release(x, y, b)
