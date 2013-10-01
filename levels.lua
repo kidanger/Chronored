@@ -14,7 +14,7 @@ function Level:init()
 		local shape = physic.new_shape('box', b.w, b.h)
 		shape:set_friction(0)
 		shape:set_restitution(0.35)
-		b.body = physic.new_body(shape, false)
+		b.body = physic.new_body(false, shape)
 		b.body:set_position(b.x + b.w/2, b.y + b.h/2) -- cause the box is centered
 		b.body.is_wall = true
 	end
@@ -22,13 +22,13 @@ function Level:init()
 		local ar = self.arrival
 		local shape = physic.new_shape('circle', ar.w / 2)
 		shape:set_sensor(true)
-		ar.body = physic.new_body(shape, false)
+		ar.body = physic.new_body(false, shape)
 		ar.body:set_position(ar.x+ar.w/4, ar.y+ar.w/4)
 	end
 	for _, c in pairs(self.capsules) do
 		local shape = physic.new_shape('circle', c.size)
 		shape:set_sensor(true)
-		c.body = physic.new_body(shape, false)
+		c.body = physic.new_body(false, shape)
 		c.body:set_position(c.x+c.size/2, c.y+c.size/2)
 		c.body.is_capsule = true
 		c.body.parent = c
@@ -37,7 +37,7 @@ function Level:init()
 	for _, t in pairs(self.texts) do
 		local shape = physic.new_shape('box', t.w, t.h)
 		shape:set_sensor(true)
-		t.body = physic.new_body(shape, false)
+		t.body = physic.new_body(false, shape)
 		t.body:set_position(t.x + t.w/2, t.y + t.h/2) -- cause the box is centered
 		t.body.is_text = true
 		t.body.parent = t
@@ -45,7 +45,7 @@ function Level:init()
 	end
 	for _, t in pairs(self.turrets) do
 		local shape = physic.new_shape('box', t.size, t.size)
-		t.body = physic.new_body(shape, false)
+		t.body = physic.new_body(false, shape)
 		t.body:set_position(t.x + t.size/2, t.y + t.size/2) -- cause the box is centered
 		t.body.is_turret = true
 		t.body.parent = t
@@ -114,6 +114,7 @@ function Level:draw()
 		end
 
 		drystal.use_buffer()
+		drystal.upload_and_free_buffer(self.buffer)
 		drystal.camera.x, drystal.camera.y = oldcamerax, oldcameray
 	end
 

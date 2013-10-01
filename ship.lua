@@ -106,7 +106,7 @@ function ship:init(level, x, y)
 	local realw = self.w * 0.8
 	local realh = self.h * 0.5
 	local shape = physic.new_shape('box', realw, realh)
-	self.body = physic.new_body(shape, true)
+	self.body = physic.new_body(true, shape)
 	self.body:set_position(x+0.5, y+0.5)
 	self.body:set_angular_damping(5)
 	self.body:set_linear_damping(0.2)

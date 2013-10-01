@@ -131,7 +131,6 @@ function gamestate:draw()
 	local sy = self.scrolly - self.ship:get_screen_y() + height/2
 
 	drystal.camera.x, drystal.camera.y = sx, sy
-	drystal.camera.angle = self.ship.body:get_angle() + math.pi/2
 	drystal.camera.zoom = zoom_level
 
 	lvl:draw()

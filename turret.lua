@@ -99,7 +99,7 @@ function Turret:fire(angle)
 	local shape = physic.new_shape('box', w, h)
 	shape:set_density(0)
 
-	rocket.body = physic.new_body(shape, true)
+	rocket.body = physic.new_body(true, shape)
 	rocket.body:set_position(x+w/2, y+h/2)
 	rocket.body:set_angle(angle)
 	local speed = 50
