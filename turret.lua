@@ -142,7 +142,6 @@ function Turret:destroy()
 	self.body:destroy()
 	for _, r in ipairs(self.rockets) do
 		r.body:destroy()
-		r.part:free()
 	end
 	self.rockets = {}
 end
