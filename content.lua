@@ -25,7 +25,7 @@ local ct = {
 
 function ct.play(str)
 	local table = ct.sounds[str]
-	drystal.play_sound(table[math.random(1, #table)])
+	table[math.random(1, #table)]:play()
 end
 
 function ct.load()

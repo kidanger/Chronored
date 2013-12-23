@@ -40,7 +40,6 @@ end
 ----======= DRAW ======]]
 function drystal.draw()
 	state:draw()
-	drystal.flip()
 end
 
 

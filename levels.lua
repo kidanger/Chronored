@@ -78,7 +78,8 @@ function Level:draw()
 		drystal.camera.x, drystal.camera.y = 0, 0
 
 		self.buffer = drystal.new_buffer()
-		drystal.use_buffer(self.buffer)
+		local t = getmetatable(self.buffer)
+		self.buffer:use()
 
 		local R = self.ratio
 
@@ -114,12 +115,12 @@ function Level:draw()
 		end
 
 		drystal.use_buffer()
-		drystal.upload_and_free_buffer(self.buffer)
+		self.buffer:upload_and_free()
 		drystal.camera.x, drystal.camera.y = oldcamerax, oldcameray
 	end
 
 	local R = self.ratio
-	drystal.draw_buffer(self.buffer)
+	self.buffer:draw()
 
 	local st = self.start
 	local sprite = ct.sprites.start
