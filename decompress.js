@@ -26,7 +26,7 @@ function a(b){throw b}var ca=void 0,j=!0,l=null,m=!1;try{this.Module=Module}catc
 };
 
 
-                       onmessage = function(event) {
-                       postMessage({ data: LZMA.decompress(event.data.data), id: event.data.id });
-                       };
-                       
+                onmessage = function(event) {
+                postMessage({ data: LZMA.decompress(event.data.data), id: event.data.id });
+                };
+                
