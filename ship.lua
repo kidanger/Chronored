@@ -171,12 +171,11 @@ function ship:draw()
 	end
 	drystal.draw_sprite(sprite, (x-self.w/2)*R, (y-self.h/2)*R, transform)
 
-	local sx, sy = drystal.get_offset()
 	drystal.set_alpha(150)
-	self.fuel_part:draw(sx, sy)
+	self.fuel_part:draw()
 	drystal.set_alpha(255)
-	self.collide_part:draw(sx, sy)
-	self.explode_part:draw(sx, sy)
+	self.collide_part:draw()
+	self.explode_part:draw()
 end
 
 function ship:update(dt)
