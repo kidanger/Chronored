@@ -46,9 +46,8 @@ function Turret:draw()
 end
 
 function Turret:draw2()
-	local dx, dy = drystal.get_offset()
 	for _, r in ipairs(self.rockets) do
-		r.part:draw(dx, dy)
+		r.part:draw()
 	end
 end
 

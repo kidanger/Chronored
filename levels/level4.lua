@@ -54,7 +54,7 @@ texts={
 	{y=110, x=107, text=1, w=38, h=21},
 },
 textdata={
-	"I know 10 seconds is short.\nBut {r255|you} have voted that.",
+	"I know 10 seconds is short.\nBut {r:255|you} have voted that.",
 	"",
 	"",
 	"",

@@ -209,7 +209,7 @@ texts={
 },
 textdata={
 	"Well done, you have done the first part,\nbut the next levels won't be as easy!",
-	"Because we {r200|g200|b100|love} {r210|g117|b157|fluttershy}!",
+	"Because we {r:200|g:200|b:100|love} {r:210|g:117|b:157|fluttershy}!",
 	"",
 	"",
 },

@@ -193,7 +193,7 @@ texts={
 	{y=48, x=111, text=1, w=34, h=17},
 },
 textdata={
-	"Those walls are {40%|cracked}.\nAnyway, you should go down now.",
+	"Those walls are {%:40|cracked}.\nAnyway, you should go down now.",
 	"",
 	"",
 	"",

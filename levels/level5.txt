@@ -1,1 +1,1 @@
-Those walls are {40%|cracked}.\nAnyway, you should go down now.
+Those walls are {%:40|cracked}.\nAnyway, you should go down now.

@@ -96,7 +96,7 @@ texts={
 	{y=110, x=99, text=1, w=3, h=7},
 },
 textdata={
-	"Welcome in this {r255|g0|b0|c}{r255|g127|b0|o}{r255|g255|b0|l}{r0|g255|b0|o}{r0|g0|b255|r}{r75|g0|b130|e}{r143|g0|b255|d} world,\nit's better than Earth, right ?",
+	"Welcome in this {r:255|g:0|b:0|c}{r:255|g:127|b:0|o}{r:255|g:255|b:0|l}{r:0|g:255|b:0|o}{r:0|g:0|b:255|r}{r:75|g:0|b:130|e}{r:143|g:0|b:255|d} world,\nit's better than Earth, right ?",
 	"",
 	"",
 	"",

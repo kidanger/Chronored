@@ -1,4 +1,4 @@
-Hey, press {b100|up} to activate the engine,\nand {b100|right/left} to rotate the ship.
+Hey, press {b:100|up} to activate the engine,\nand {b:100|right/left} to rotate the ship.
 
-Those little things are {b255|Fuel Capsules},\nthey help to last more than {r0|g100|b0|10 seconds}.
-And there are some {r255|Health Capsules},\nif your health is at zero, your ship {r255|g0|b0|explodes}.
+Those little things are {b:255|Fuel Capsules},\nthey help to last more than {r:0|g:100|b:0|10 seconds}.
+And there are some {r:255|Health Capsules},\nif your health is at zero, your ship {r:255|g:0|b:0|explodes}.

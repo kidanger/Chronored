@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # coding: utf-8
 
-import Image
+from PIL import Image
 
 VOID = 255, 255, 255
 START = 255, 0, 0
