@@ -8,19 +8,33 @@ if (!Module.expectedDataFileDownloads) {
 Module.expectedDataFileDownloads++;
 (function() {
 
-    function fetchRemotePackage(packageName, callback, errback) {
+    var PACKAGE_PATH;
+    if (typeof window === 'object') {
+      PACKAGE_PATH = window['encodeURIComponent'](window.location.pathname.toString().substring(0, window.location.pathname.toString().lastIndexOf('/')) + '/');
+    } else {
+      // worker
+      PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
+    }
+    var PACKAGE_NAME = '../chronored/web/game.data';
+    var REMOTE_PACKAGE_NAME = (Module['filePackagePrefixURL'] || '') + 'game.data.compress';
+    var REMOTE_PACKAGE_SIZE = 259037;
+    var PACKAGE_UUID = '54f54afe-1494-4bd3-a459-dac0ddb769ff';
+  
+    function fetchRemotePackage(packageName, packageSize, callback, errback) {
       var xhr = new XMLHttpRequest();
       xhr.open('GET', packageName, true);
       xhr.responseType = 'arraybuffer';
       xhr.onprogress = function(event) {
         var url = packageName;
-        if (event.loaded && event.total) {
+        var size = packageSize;
+        if (event.total) size = event.total;
+        if (event.loaded) {
           if (!xhr.addedTotal) {
             xhr.addedTotal = true;
             if (!Module.dataFileDownloads) Module.dataFileDownloads = {};
             Module.dataFileDownloads[url] = {
               loaded: event.loaded,
-              total: event.total
+              total: size
             };
           } else {
             Module.dataFileDownloads[url].loaded = event.loaded;
@@ -52,7 +66,7 @@ Module.expectedDataFileDownloads++;
     };
   
       var fetched = null, fetchedCallback = null;
-      fetchRemotePackage('game.data.compress', function(data) {
+      fetchRemotePackage(REMOTE_PACKAGE_NAME, REMOTE_PACKAGE_SIZE, function(data) {
         if (fetchedCallback) {
           fetchedCallback(data);
           fetchedCallback = null;
@@ -104,59 +118,48 @@ Module['FS_createPath']('/', 'hump', true, true);
         this.requests[this.name] = null;
       },
     };
-      new DataRequest(0, 41681, 0, 0).open('GET', '/spritesheet.png');
-    new DataRequest(41681, 47396, 0, 0).open('GET', '/levels.lua');
-    new DataRequest(47396, 97304, 0, 0).open('GET', '/styllo.ttf');
-    new DataRequest(97304, 99851, 0, 0).open('GET', '/ending.lua');
-    new DataRequest(99851, 102255, 0, 0).open('GET', '/menu.lua');
-    new DataRequest(102255, 109369, 0, 0).open('GET', '/game.lua');
-    new DataRequest(109369, 112914, 0, 0).open('GET', '/turret.lua');
-    new DataRequest(112914, 113593, 0, 0).open('GET', '/hsl.lua');
-    new DataRequest(113593, 115035, 0, 0).open('GET', '/main.lua');
-    new DataRequest(115035, 124829, 0, 0).open('GET', '/ship.lua');
-    new DataRequest(124829, 126695, 0, 0).open('GET', '/content.lua');
-    new DataRequest(126695, 134331, 0, 1).open('GET', '/sounds/out1.wav');
-    new DataRequest(134331, 140519, 0, 1).open('GET', '/sounds/regen_fuel.wav');
-    new DataRequest(140519, 186963, 0, 1).open('GET', '/sounds/next_level.wav');
-    new DataRequest(186963, 196635, 0, 1).open('GET', '/sounds/collide1.wav');
-    new DataRequest(196635, 202823, 0, 1).open('GET', '/sounds/collide2.wav');
-    new DataRequest(202823, 218751, 0, 1).open('GET', '/sounds/collide3.wav');
-    new DataRequest(218751, 234891, 0, 1).open('GET', '/sounds/collide4.wav');
-    new DataRequest(234891, 475635, 0, 1).open('GET', '/sounds/ending.wav');
-    new DataRequest(475635, 517489, 0, 1).open('GET', '/sounds/explode1.wav');
-    new DataRequest(517489, 528817, 0, 1).open('GET', '/sounds/fire1.wav');
-    new DataRequest(528817, 564111, 0, 1).open('GET', '/sounds/regen_health.wav');
-    new DataRequest(564111, 572971, 0, 1).open('GET', '/sounds/littlehurt1.wav');
-    new DataRequest(572971, 609823, 0, 1).open('GET', '/sounds/explode2.wav');
-    new DataRequest(609823, 615577, 0, 0).open('GET', '/levels/level7.lua');
-    new DataRequest(615577, 618123, 0, 0).open('GET', '/levels/level8.lua');
-    new DataRequest(618123, 621457, 0, 0).open('GET', '/levels/level3.lua');
-    new DataRequest(621457, 624169, 0, 0).open('GET', '/levels/level2.lua');
-    new DataRequest(624169, 626795, 0, 0).open('GET', '/levels/level9.lua');
-    new DataRequest(626795, 629064, 0, 0).open('GET', '/levels/level1.lua');
-    new DataRequest(629064, 632120, 0, 0).open('GET', '/levels/level6.lua');
-    new DataRequest(632120, 638760, 0, 0).open('GET', '/levels/level10.lua');
-    new DataRequest(638760, 643909, 0, 0).open('GET', '/levels/level5.lua');
-    new DataRequest(643909, 645312, 0, 0).open('GET', '/levels/level4.lua');
-    new DataRequest(645312, 651556, 0, 0).open('GET', '/hump/timer.lua');
-    new DataRequest(651556, 655081, 0, 0).open('GET', '/hump/vector-light.lua');
-    new DataRequest(655081, 658469, 0, 0).open('GET', '/hump/camera.lua');
-    new DataRequest(658469, 661198, 0, 0).open('GET', '/hump/signal.lua');
-    new DataRequest(661198, 664123, 0, 0).open('GET', '/hump/class.lua');
-    new DataRequest(664123, 666918, 0, 0).open('GET', '/hump/gamestate.lua');
-    new DataRequest(666918, 672160, 0, 0).open('GET', '/hump/vector.lua');
+      new DataRequest(0, 40463, 0, 0).open('GET', '/spritesheet.png');
+    new DataRequest(40463, 46178, 0, 0).open('GET', '/levels.lua');
+    new DataRequest(46178, 96086, 0, 0).open('GET', '/styllo.ttf');
+    new DataRequest(96086, 98633, 0, 0).open('GET', '/ending.lua');
+    new DataRequest(98633, 101004, 0, 0).open('GET', '/menu.lua');
+    new DataRequest(101004, 108050, 0, 0).open('GET', '/game.lua');
+    new DataRequest(108050, 111552, 0, 0).open('GET', '/turret.lua');
+    new DataRequest(111552, 112231, 0, 0).open('GET', '/hsl.lua');
+    new DataRequest(112231, 113673, 0, 0).open('GET', '/main.lua');
+    new DataRequest(113673, 123412, 0, 0).open('GET', '/ship.lua');
+    new DataRequest(123412, 125278, 0, 0).open('GET', '/content.lua');
+    new DataRequest(125278, 132914, 0, 1).open('GET', '/sounds/out1.wav');
+    new DataRequest(132914, 139102, 0, 1).open('GET', '/sounds/regen_fuel.wav');
+    new DataRequest(139102, 185546, 0, 1).open('GET', '/sounds/next_level.wav');
+    new DataRequest(185546, 195218, 0, 1).open('GET', '/sounds/collide1.wav');
+    new DataRequest(195218, 201406, 0, 1).open('GET', '/sounds/collide2.wav');
+    new DataRequest(201406, 217334, 0, 1).open('GET', '/sounds/collide3.wav');
+    new DataRequest(217334, 233474, 0, 1).open('GET', '/sounds/collide4.wav');
+    new DataRequest(233474, 474218, 0, 1).open('GET', '/sounds/ending.wav');
+    new DataRequest(474218, 516072, 0, 1).open('GET', '/sounds/explode1.wav');
+    new DataRequest(516072, 527400, 0, 1).open('GET', '/sounds/fire1.wav');
+    new DataRequest(527400, 562694, 0, 1).open('GET', '/sounds/regen_health.wav');
+    new DataRequest(562694, 571554, 0, 1).open('GET', '/sounds/littlehurt1.wav');
+    new DataRequest(571554, 608406, 0, 1).open('GET', '/sounds/explode2.wav');
+    new DataRequest(608406, 614166, 0, 0).open('GET', '/levels/level7.lua');
+    new DataRequest(614166, 616712, 0, 0).open('GET', '/levels/level8.lua');
+    new DataRequest(616712, 620046, 0, 0).open('GET', '/levels/level3.lua');
+    new DataRequest(620046, 622779, 0, 0).open('GET', '/levels/level2.lua');
+    new DataRequest(622779, 625405, 0, 0).open('GET', '/levels/level9.lua');
+    new DataRequest(625405, 627684, 0, 0).open('GET', '/levels/level1.lua');
+    new DataRequest(627684, 630740, 0, 0).open('GET', '/levels/level6.lua');
+    new DataRequest(630740, 637380, 0, 0).open('GET', '/levels/level10.lua');
+    new DataRequest(637380, 642530, 0, 0).open('GET', '/levels/level5.lua');
+    new DataRequest(642530, 643934, 0, 0).open('GET', '/levels/level4.lua');
+    new DataRequest(643934, 650178, 0, 0).open('GET', '/hump/timer.lua');
+    new DataRequest(650178, 653703, 0, 0).open('GET', '/hump/vector-light.lua');
+    new DataRequest(653703, 657091, 0, 0).open('GET', '/hump/camera.lua');
+    new DataRequest(657091, 659820, 0, 0).open('GET', '/hump/signal.lua');
+    new DataRequest(659820, 662745, 0, 0).open('GET', '/hump/class.lua');
+    new DataRequest(662745, 665540, 0, 0).open('GET', '/hump/gamestate.lua');
+    new DataRequest(665540, 670782, 0, 0).open('GET', '/hump/vector.lua');
 
-    var PACKAGE_PATH;
-    if (typeof window === 'object') {
-      PACKAGE_PATH = window['encodeURIComponent'](window.location.pathname.toString().substring(0, window.location.pathname.toString().lastIndexOf('/')) + '/');
-    } else {
-      // worker
-      PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
-    }
-    var PACKAGE_NAME = '../chronored/web/game.data';
-    var REMOTE_PACKAGE_NAME = 'game.data.compress';
-    var PACKAGE_UUID = '99f61a0d-4872-401b-b629-22c4f2fddd1c';
-  
     function processPackageData(arrayBuffer) {
       Module.finishedDataFileDownloads++;
       assert(arrayBuffer, 'Loading data file failed.');
