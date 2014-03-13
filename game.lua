@@ -1,7 +1,6 @@
 local drystal = require 'drystal'
 local physic = require 'physic'
 local font = require 'truetype'
-local storage = require 'storage'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local ship = require 'ship'
@@ -40,7 +39,7 @@ physic.on_collision(
 )
 
 function gamestate:change_level(lvlnumber)
-	storage.save('chronored', {level=lvlnumber, hard=self.hard})
+	drystal.store('chronored', {level=lvlnumber, hard=self.hard})
 
 	if self.ship.body then
 		local oldlvl = ct.levels[self.level]

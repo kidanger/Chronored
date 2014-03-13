@@ -1,6 +1,5 @@
 local drystal = require 'drystal'
 local font = require 'truetype'
-local storage = require 'storage'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local gamestate = require 'game'
@@ -75,7 +74,7 @@ function menustate:key_press(key)
 	if key == 'return' or key == 'space' then
 		dostuff = false
 		local level = 1
-		local datas = storage.load('chronored')
+		local datas = drystal.fetch('chronored')
 		if datas then
 			level = datas.level
 			gamestate.hard = datas.hard
