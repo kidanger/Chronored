@@ -22,7 +22,6 @@ end
 --[[=====================
 ----======= UPDATE ======]]
 function drystal.update(dt)
-	dt = dt / 1000
 	if dt > .6 then dt =.6 end
 	state:update(dt)
 	timer.update(dt)
