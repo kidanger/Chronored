@@ -1,5 +1,4 @@
 local drystal = require 'drystal'
-local font = require 'truetype'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local gamestate = require 'game'
@@ -61,12 +60,11 @@ function menustate:draw()
 
 	drystal.set_color(255,255,255)
 	drystal.set_alpha(self.text_alpha)
-	font.use(ct.fonts.big)
 	local text = 'Press enter to play'
 	if gamestate.hard then
 		text = 'Hard mode enabled. Theme: 5 seconds'
 	end
-	font.draw_align(text, width / 2, height*.8, 'center')
+	ct.fonts.big:draw_align(text, width / 2, height*.8, 'center')
 end
 
 local harding = false

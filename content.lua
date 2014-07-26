@@ -1,5 +1,4 @@
 local drystal = require 'drystal'
-local font = require 'truetype'
 
 local ct = {
 	sounds = {
@@ -32,11 +31,11 @@ function ct.load()
 	ct.max_level = #ct.levels
 
 	ct.images.spritesheet = drystal.load_surface('spritesheet.png')
-	drystal.draw_from(ct.images.spritesheet)
+	ct.images.spritesheet:draw_from()
 
-	ct.fonts.small = font.load('styllo.ttf', 20)
-	ct.fonts.normal = font.load('styllo.ttf', 32)
-	ct.fonts.big = font.load('styllo.ttf', 48)
+	ct.fonts.small = drystal.load_font('styllo.ttf', 20)
+	ct.fonts.normal = drystal.load_font('styllo.ttf', 32)
+	ct.fonts.big = drystal.load_font('styllo.ttf', 48)
 
 	--ct.sounds.consume_fuel = load_sound('consume_fuel.wav')
 	ct.sounds.collide = {

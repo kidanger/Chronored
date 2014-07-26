@@ -1,6 +1,4 @@
 local drystal = require 'drystal'
-local physic = require 'physic'
-local font = require 'truetype'
 local timer = require 'hump/timer'
 local ct = require 'content'
 local ship = require 'ship'
@@ -25,9 +23,9 @@ local gamestate = {
 	hard=false,
 }
 
-physic.create_world(0, 6)
+drystal.create_world(0, 6)
 
-physic.on_collision(
+drystal.on_collision(
 	function (b1, b2)
 		if b1.begin_collide then b1:begin_collide(b2) end
 		if b2.begin_collide then b2:begin_collide(b1) end
@@ -136,8 +134,8 @@ function gamestate:draw()
 
 	drystal.set_alpha(255)
 	drystal.set_color(0, 0, 0)
-	font.use(ct.fonts.small)
-	font.draw('Level: ' .. self.level .. '/' .. ct.max_level, 20, 3)
+	local font = ct.fonts.small
+	font:draw('Level: ' .. self.level .. '/' .. ct.max_level, 20, 3)
 	do -- draw health
 		drystal.set_alpha(200)
 		drystal.set_color(0, 0, 0)
@@ -154,24 +152,20 @@ function gamestate:draw()
 
 		drystal.set_color(210, 0, 0)
 		drystal.draw_rect(x, y, math.ceil(w*(self.ship.health / self.ship.max_health)), h)
-		font.use(ct.fonts.small)
 		drystal.set_color(0, 0, 0)
-		font.draw_align('health: ' .. coolround(self.ship.health), x + w/2, y-1, 'center')
+		font:draw_align('health: ' .. coolround(self.ship.health), x + w/2, y-1, 'center')
 	end
 
 	do -- draw fuel
-		font.use(ct.fonts.big)
 		--set_color(math.min(255, (1 - self.ship.fuel/self.ship.max_fuel)*255), 0, 0)
 		drystal.set_color(0,0,0)
 		drystal.set_alpha(math.min(255, math.max(100, (1 - self.ship.fuel/2/self.ship.max_fuel)*255)))
 		local text = 'Fuel: ' .. coolround(self.ship.fuel) .. ' seconds'
-		font.draw_align(text, width/2, 100, 'center')
+		ct.fonts.big:draw_align(text, width/2, 100, 'center')
 	end
 
 	if self.text_width >= 1 then
-		font.use(ct.fonts.normal)
-		font.use_color(true)
-		local _, h = font.sizeof(self.display_text)
+		local _, h = ct.fonts.normal:sizeof(self.display_text)
 		local llines = lines(self.display_text)
 		drystal.set_color(255,255,255)
 		drystal.set_alpha(200)
@@ -180,10 +174,9 @@ function gamestate:draw()
 			drystal.set_color(0,0,0)
 			drystal.set_alpha(200)
 			for i, l in ipairs(llines) do
-				font.draw_align(l, width/2, height - 130 + (h+4)*i, 'center')
+				ct.fonts.normal:draw_align(l, width/2, height - 130 + (h+4)*i, 'center')
 			end
 		end
-		font.use_color(false)
 	end
 
 	if self.pause then
@@ -192,11 +185,9 @@ function gamestate:draw()
 		drystal.draw_rect(0, 0, width, height)
 
 		drystal.set_alpha(255)
-		font.use(ct.fonts.big)
-		font.use_color(true)
-		font.draw_align('Pause', width/2, height*.4, 'center')
-		font.draw_align('Press {b50|P} to unpause', width/2, height*.6, 'center')
-		font.use_color(false)
+		local font = ct.fonts.big
+		font:draw_align('Pause', width/2, height*.4, 'center')
+		font:draw_align('Press {b50|P} to unpause', width/2, height*.6, 'center')
 	end
 end
 
@@ -224,7 +215,7 @@ function gamestate:update(dt)
 		t:update(dt)
 	end
 	ship:update(dt)
-	physic.update(dt)
+	drystal.update_physic(dt)
 end
 
 function gamestate:key_press(key)

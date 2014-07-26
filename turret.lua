@@ -1,6 +1,4 @@
 local drystal = require 'drystal'
-local physic = require 'physic'
-local particle = require 'particle'
 
 local Turret = {
 	range = 45,
@@ -92,13 +90,13 @@ function Turret:fire(angle)
 		y=y,
 		w=w,
 		h=h,
-		part=particle.new_system(0, 0)
+		part=drystal.new_system(0, 0)
 	}
 
-	local shape = physic.new_shape('box', w, h)
+	local shape = drystal.new_shape('box', w, h)
 	shape:set_density(0)
 
-	rocket.body = physic.new_body(true, shape)
+	rocket.body = drystal.new_body(true, shape)
 	rocket.body:set_position(x+w/2, y+h/2)
 	rocket.body:set_angle(angle)
 	local speed = 50

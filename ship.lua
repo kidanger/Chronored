@@ -1,6 +1,4 @@
 local drystal = require 'drystal'
-local physic = require 'physic'
-local particle = require 'particle'
 local timer = require 'hump/timer'
 local ct = require 'content'
 
@@ -41,9 +39,9 @@ local ship = {
 	die_ended=false,
 	playing_hurt=0,
 
-	collide_part=particle.new_system(0, 0),
-	explode_part=particle.new_system(0, 0),
-	fuel_part=particle.new_system(0, 0),
+	collide_part=drystal.new_system(0, 0),
+	explode_part=drystal.new_system(0, 0),
+	fuel_part=drystal.new_system(0, 0),
 }
 
 ship.fuel_part:add_size(0, 5)
@@ -105,8 +103,8 @@ function ship:init(level, x, y)
 
 	local realw = self.w * 0.8
 	local realh = self.h * 0.5
-	local shape = physic.new_shape('box', realw, realh)
-	self.body = physic.new_body(true, shape)
+	local shape = drystal.new_shape('box', realw, realh)
+	self.body = drystal.new_body(true, shape)
 	self.body:set_position(x+0.5, y+0.5)
 	self.body:set_angular_damping(5)
 	self.body:set_linear_damping(0.2)

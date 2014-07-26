@@ -21,8 +21,10 @@ end
 
 --[[=====================
 ----======= UPDATE ======]]
+local time = 0
 function drystal.update(dt)
 	if dt > .6 then dt =.6 end
+	time = time + dt
 	state:update(dt)
 	timer.update(dt)
 end
