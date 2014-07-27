@@ -64,7 +64,7 @@ function menustate:draw()
 	if gamestate.hard then
 		text = 'Hard mode enabled. Theme: 5 seconds'
 	end
-	ct.fonts.big:draw_align(text, width / 2, height*.8, 'center')
+	ct.fonts.big:draw(text, width / 2, height*.8, 2)
 end
 
 local harding = false

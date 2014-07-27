@@ -69,16 +69,16 @@ function endingstate:draw()
 	drystal.draw_background()
 
 	drystal.set_color(255, 255, 255)
-	ct.fonts.big:draw_align('Thanks for playing', self.thanksx, self.thanksy, 'center')
+	ct.fonts.big:draw('Thanks for playing', self.thanksx, self.thanksy, 2)
 
-	ct.fonts.normal:draw_align('Made by kidanger, for LudumDare #27', self.madebyx, self.madebyy, 'center')
+	ct.fonts.normal:draw('Made by kidanger, for LudumDare #27', self.madebyx, self.madebyy, 2)
 
 	drystal.set_alpha(self.alphasecs)
-	ct.fonts.normal:draw_align(self.prefix .. coolround(self.seconds) .. ' seconds', self.madebyx, self.madebyy + 50, 'center')
+	ct.fonts.normal:draw(self.prefix .. coolround(self.seconds) .. ' seconds', self.madebyx, self.madebyy + 50, 2)
 
 	if self.seconds < 5 then
 		drystal.set_alpha(self.alphasecs)
-		ct.fonts.normal:draw_align('Hardmode enabled. Theme: 5 seconds.', self.madebyx, self.madebyy + 100, 'center')
+		ct.fonts.normal:draw('Hardmode enabled. Theme: 5 seconds.', self.madebyx, self.madebyy + 100, 2)
 	end
 end
 
