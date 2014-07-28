@@ -48,12 +48,9 @@ function endingstate:update(dt)
 end
 
 local function coolround(num)
-	local n = math.floor(num*10)/10
-	if n == 0 and num ~= 0 then n = '0.1' end
-	if n == math.floor(n) then
-		return n .. '.0'
-	end
-	return n
+	local n = math.floor(num)
+	local dec = math.floor((num - n) * 10)
+	return math.floor(n) .. '.' .. dec
 end
 function endingstate:draw()
 	if self.fading then

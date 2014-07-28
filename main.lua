@@ -13,7 +13,11 @@ local menustate = require 'menu'
 --[[===================
 ----======= INIT ======]]
 function drystal.init()
-	drystal.resize(width, height)
+	if drystal.is_web then
+		drystal.set_fullscreen(true)
+	else
+		drystal.resize(width, height)
+	end
 	ct.load()
 	set_state(menustate)
 end
@@ -82,4 +86,13 @@ function drystal.mouse_release(x, y, b)
 	if state.mouse_release then
 		state:mouse_release(x, y, b)
 	end
+end
+
+function drystal.resize_event(w, h)
+	if drystal.is_web then
+		drystal.set_fullscreen(true)
+	end
+	width = w
+	height = h
+	print('resized!')
 end
