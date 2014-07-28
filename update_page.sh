@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ../drystal
-./runner.py repack ../chronored -i -d ../chronored/web
+./tools/runner.py repack ../chronored -i -d ../chronored/web
 cd ../chronored
 
 git checkout gh-pages || exit
