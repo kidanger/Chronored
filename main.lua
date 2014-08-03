@@ -15,6 +15,8 @@ local menustate = require 'menu'
 function drystal.init()
 	if drystal.is_web then
 		drystal.set_fullscreen(true)
+		width = drystal.screen.w
+		height = drystal.screen.h
 	else
 		drystal.resize(width, height)
 	end
