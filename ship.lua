@@ -105,10 +105,10 @@ function ship:init(level, x, y)
 	local realh = self.h * 0.5
 	local shape = drystal.new_shape('box', realw, realh)
 	self.body = drystal.new_body(true, shape)
-	self.body:set_position(x+0.5, y+0.5)
+	self.body:set_position(x, y)
 	self.body:set_angular_damping(5)
 	self.body:set_linear_damping(0.2)
-	self.body:set_mass_center(0.4, 0)
+	self.body:set_mass_center(realw/2 + 0.1, realh/2)
 	self.body:set_angle(level.angle)
 	self.body:set_linear_velocity(0, -3)
 
@@ -150,7 +150,7 @@ function ship:draw()
 	end
 	drystal.set_color(self.color)
 
-	local x, y = self.body:get_position()
+	local x, y = self.body:get_center_position()
 	local angle = self.body:get_angle()
 	local R = self.level.ratio
 
@@ -167,7 +167,7 @@ function ship:draw()
 	if angle > math.pi/2 and angle < math.pi*3/2 then
 		transform.hfactor = transform.hfactor * -1
 	end
-	drystal.draw_sprite(sprite, (x-self.w/2)*R, (y-self.h/2)*R, transform)
+	drystal.draw_sprite(sprite, (x - self.w / 2) * R, (y - self.h / 2) * R, transform)
 
 	drystal.set_alpha(150)
 	self.fuel_part:draw()
@@ -181,7 +181,7 @@ function ship:update(dt)
 		self.fuel_part:update(dt)
 		self.collide_part:update(dt)
 		self.explode_part:update(dt)
-		local x, y = self.body:get_position()
+		local x, y = self.body:get_center_position()
 		local angle = self.body:get_angle()
 		local R = self.level.ratio
 		x = x*R
@@ -353,12 +353,12 @@ function ship:boom_rocket_inyourface()
 end
 
 function ship:get_screen_x()
-	local x = self.body:get_position()
+	local x = self.body:get_center_position()
 	local R = self.level.ratio
 	return x * R
 end
 function ship:get_screen_y()
-	local _, y = self.body:get_position()
+	local _, y = self.body:get_center_position()
 	local R = self.level.ratio
 	return y * R
 end

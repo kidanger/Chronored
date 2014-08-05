@@ -1,5 +1,4 @@
 local drystal = require 'drystal'
-local hsl = require 'hsl'
 local Turret = require 'turret'
 
 local Level = {
@@ -14,7 +13,7 @@ function Level:init()
 		shape:set_friction(0)
 		shape:set_restitution(0.35)
 		b.body = drystal.new_body(false, shape)
-		b.body:set_position(b.x + b.w/2, b.y + b.h/2) -- cause the box is centered
+		b.body:set_position(b.x, b.y)
 		b.body.is_wall = true
 	end
 	do
@@ -37,15 +36,14 @@ function Level:init()
 		local shape = drystal.new_shape('box', t.w, t.h)
 		shape:set_sensor(true)
 		t.body = drystal.new_body(false, shape)
-		t.body:set_position(t.x + t.w/2, t.y + t.h/2) -- cause the box is centered
+		t.body:set_position(t.x, t.y)
 		t.body.is_text = true
 		t.body.parent = t
 		t.string = self.textdata[t.text]
 	end
 	for _, t in pairs(self.turrets) do
 		local shape = drystal.new_shape('box', t.size, t.size)
-		t.body = drystal.new_body(false, shape)
-		t.body:set_position(t.x + t.size/2, t.y + t.size/2) -- cause the box is centered
+		t.body = drystal.new_body(false, t.x, t.y, shape)
 		t.body.is_turret = true
 		t.body.parent = t
 		t.angle = 0
@@ -72,12 +70,10 @@ end
 function Level:draw()
 	local ct = require 'content'
 	if not self.buffer then
-
 		local oldcamerax, oldcameray = drystal.camera.x, drystal.camera.y
 		drystal.camera.x, drystal.camera.y = 0, 0
 
 		self.buffer = drystal.new_buffer()
-		local t = getmetatable(self.buffer)
 		self.buffer:use()
 
 		local R = self.ratio
@@ -90,7 +86,8 @@ function Level:draw()
 			local y = math.random(start.y-20, start.y+20)
 			local s = math.random(85, 95) / 100
 			local l = math.random(85, 95) / 100
-			drystal.set_color(hsl((self.hue+math.random(-5, 5))%360, s, l))
+			local c = drystal.new_color('hsl', (self.hue+math.random(-5, 5))%360, s, l)
+			drystal.set_color(c)
 			local x2, y2 = x+math.random(50, 100)*sign(), y+math.random(90, 170)*sign()
 			local x3, y3 = x+math.random(90, 170)*sign(), y+math.random(50, 100)*sign()
 			drystal.draw_triangle(x*R, y*R, x2*R, y2*R, x3*R, y3*R)
@@ -124,12 +121,12 @@ function Level:draw()
 	local st = self.start
 	local sprite = ct.sprites.start
 	drystal.set_color(st.color)
-	drystal.draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
+	drystal.draw_sprite_resized(sprite, st.x*R-R, st.y*R-R, st.w*R, st.h*R)
 
 	local st = self.arrival
 	local sprite = ct.sprites.arrival
 	drystal.set_color(st.color)
-	drystal.draw_sprite_resized(sprite, st.x*R - R, st.y*R - R, st.w*R, st.h*R)
+	drystal.draw_sprite_resized(sprite, st.x*R-R, st.y*R-R, st.w*R, st.h*R)
 
 	for _, c in ipairs(self.capsules) do
 		if c.is_visible then
@@ -160,9 +157,9 @@ local function load_level(name, hue, angle)
 		local h = (hue+math.random(-5,5)) % 360
 		local s = math.random(50, 70)/100
 		local l = math.random(30, 50)/100
-		return hsl(h, s, l),
-				hsl(h, s, l-0.2),
-				hsl(h, s, l-0.4)
+		return drystal.new_color('hsl', h, s, l),
+			drystal.new_color('hsl', h, s, math.max(0, l - .2)),
+			drystal.new_color('hsl', h, s, math.max(0, l - .4))
 	end
 
 	level.hue = hue
@@ -175,7 +172,7 @@ local function load_level(name, hue, angle)
 	level.arrival.h = 3
 	level.arrival.color = {100, 100, 255}
 
-	local color = hsl(hue, 0.5, 0.8)
+	local color = drystal.new_color('hsl', hue, 0.5, 0.8)
 	level.background = color
 
 	for _, b in pairs(level.boxes) do
@@ -201,14 +198,14 @@ end
 
 local levels = {
 	load_level('level1', 130, -math.pi*.7),
-	load_level('level2', 100, -math.pi*.2), -- cave
+	load_level('level2', 273, -math.pi*.2), -- cave
 	load_level('level3', 220, -math.pi*.5), -- go up
 	load_level('level4', 30 , -math.pi*.2), -- snail
 	load_level('level5', 280, -math.pi*.0), -- go down
 	load_level('level6', 0  , -math.pi*.2), -- first turret
 	load_level('level7', 180, -math.pi*.7), -- long
 	load_level('level8', 20 , -math.pi*.15), -- run
-	load_level('level9', 100 , -math.pi*.2), -- reverse cave
+	load_level('level9', 273 , -math.pi*.2), -- reverse cave
 	load_level('level10', 50 , math.pi*.2), -- last one
 }
 

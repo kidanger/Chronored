@@ -9,8 +9,8 @@ local ct = {
 	},
 	sprites = {
 		title = {x=0, y=64, w=852, h=303},
-		ship = {x=0, y=0, w=64, h=64},
-		ship_engine = {x=64, y=0, w=64, h=64},
+		ship = {x=1, y=3, w=64-1, h=64-3},
+		ship_engine = {x=1+64, y=3, w=64-1, h=64-3},
 		fuel_capsule = {x=128+16, y=0, w=16, h=16},
 		health_capsule = {x=128+32, y=0, w=16, h=16},
 		start = {x=192, y=0, w=32, h=32},
@@ -31,6 +31,7 @@ function ct.load()
 	ct.max_level = #ct.levels
 
 	ct.images.spritesheet = drystal.load_surface('spritesheet.png')
+	ct.images.spritesheet:set_filter(drystal.TRILINEAR)
 	ct.images.spritesheet:draw_from()
 
 	ct.fonts.small = drystal.load_font('styllo.ttf', 20)

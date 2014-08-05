@@ -20,26 +20,21 @@ function Turret:draw()
 	local R = self.level.ratio
 
 	local sprite = ct.sprites.turret_base
-	local transform = {
-		angle=0,
-		wfactor=self.size*R / sprite.w,
-		hfactor=self.size*R / sprite.h,
-	}
 
 	drystal.set_color(self.color)
-	drystal.draw_sprite(sprite, self.x*R, self.y*R, transform)
+	drystal.draw_sprite(sprite, self.x*R, self.y*R)
 
 	local sprite = ct.sprites.turret_canon
 	drystal.set_color(255,255,255)
-	transform.angle = self.angle
-	drystal.draw_sprite(sprite, self.x*R, self.y*R, transform)
+	drystal.draw_sprite_rotated(sprite, self.x*R, self.y*R, self.angle)
 
 	drystal.set_color(255,255,255)
 	for _, r in ipairs(self.rockets) do
 		local sprite = ct.sprites.missile
 		local x, y = r.body:get_position()
+		local w, h = sprite.w, sprite.h
 		local angle = r.body:get_angle()
-		drystal.draw_sprite_rotated(sprite, x*R-sprite.w/2, y*R-sprite.h/2, angle)
+		drystal.draw_sprite_rotated(sprite, x*R-w/2, y*R-h/2, angle)
 	end
 end
 
@@ -54,7 +49,7 @@ function Turret:update(dt)
 
 	self.tick = self.tick + dt
 
-	local sx, sy = ship.body:get_position()
+	local sx, sy = ship.body:get_center_position()
 	local dx, dy = ship.body:get_linear_velocity()
 	sx, sy = sx + dx*0.3, sy + dy*0.3
 	local can_see = math.sqrt((sx-self.x)^2 + (sy-self.y)^2) < self.range
@@ -69,7 +64,7 @@ function Turret:update(dt)
 	end
 
 	for i, r in ipairs(self.rockets) do
-		local x, y = r.body:get_position()
+		local x, y = r.body:get_center_position()
 		local R = self.level.ratio
 		r.part:set_position(x*R, y*R)
 		r.part:update(dt)
@@ -94,10 +89,10 @@ function Turret:fire(angle)
 	}
 
 	local shape = drystal.new_shape('box', w, h)
+	local shape = drystal.new_shape('circle', w/2)
 	shape:set_density(0)
 
-	rocket.body = drystal.new_body(true, shape)
-	rocket.body:set_position(x+w/2, y+h/2)
+	rocket.body = drystal.new_body(true, x, y, shape)
 	rocket.body:set_angle(angle)
 	local speed = 50
 	rocket.body:set_linear_damping(0)
