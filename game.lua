@@ -23,7 +23,7 @@ local gamestate = {
 	hard=false,
 }
 
-drystal.create_world(0, 6)
+drystal.init_physics(0, 6)
 
 drystal.on_collision(
 	function (b1, b2)
@@ -206,7 +206,7 @@ function gamestate:update(dt)
 		t:update(dt)
 	end
 	ship:update(dt)
-	drystal.update_physic(dt)
+	drystal.update_physics(dt)
 end
 
 function gamestate:key_press(key)

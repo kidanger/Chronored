@@ -110,7 +110,7 @@ function Level:draw()
 			drystal.draw_rect(x+outline, y+outline, w-outline*2, h-outline*2)
 		end
 
-		drystal.use_buffer()
+		drystal.use_default_buffer()
 		self.buffer:upload_and_free()
 		drystal.camera.x, drystal.camera.y = oldcamerax, oldcameray
 	end
