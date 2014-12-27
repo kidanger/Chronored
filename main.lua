@@ -90,10 +90,8 @@ function drystal.mouse_release(x, y, b)
 	end
 end
 
-function drystal.resize_event(w, h)
-	if drystal.is_web then
-		drystal.set_fullscreen(true)
-	end
+function drystal.page_resize(w, h)
+	drystal.set_fullscreen(true)
 	width = w
 	height = h
 	print('resized!')

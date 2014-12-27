@@ -120,10 +120,6 @@ function ship:init(level, x, y)
 	self.collisions = 0
 	self.health_handle = nil
 	self.size_handle = nil
-
-	self.fuel_part:pause()
-	self.collide_part:pause()
-	self.explode_part:pause()
 end
 
 function ship:destroy()
@@ -372,7 +368,7 @@ function ship:goforward()
 	self.activated = true
 end
 function ship:stop_goforward()
-	self.fuel_part:pause()
+	self.fuel_part:stop()
 	self.activated = false
 end
 
