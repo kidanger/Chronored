@@ -31,7 +31,7 @@ function ct.load()
 	ct.max_level = #ct.levels
 
 	ct.images.spritesheet = drystal.load_surface('spritesheet.png')
-	ct.images.spritesheet:set_filter(drystal.TRILINEAR)
+	ct.images.spritesheet:set_filter(drystal.filters.trilinear)
 	ct.images.spritesheet:draw_from()
 
 	ct.fonts.small = drystal.load_font('styllo.ttf', 20)
