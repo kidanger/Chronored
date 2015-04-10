@@ -80,7 +80,9 @@ ship.collide_part:set_initial_acceleration(30)
 ship.collide_part:set_emission_rate(30)
 ship.collide_part:set_offset(10, 10)
 
-function ship:init(level, x, y)
+ship.__index = ship
+function ship.init(__, level, x, y)
+	local self = setmetatable({}, ship)
 	assert(not self.body)
 
 	local game = require 'game'
@@ -120,6 +122,7 @@ function ship:init(level, x, y)
 	self.collisions = 0
 	self.health_handle = nil
 	self.size_handle = nil
+	return self
 end
 
 function ship:destroy()

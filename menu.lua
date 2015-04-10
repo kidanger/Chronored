@@ -1,7 +1,7 @@
 local drystal = require 'drystal'
 local timer = require 'hump/timer'
 local ct = require 'content'
-local gamestate = require 'game'
+local gamestate = require 'game'.init()
 
 local menustate = {
 }

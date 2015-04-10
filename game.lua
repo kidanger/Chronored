@@ -22,6 +22,7 @@ local gamestate = {
 
 	hard=false,
 }
+gamestate.__index = gamestate
 
 drystal.init_physics(0, 6)
 
@@ -36,8 +37,13 @@ drystal.on_collision(
 	end
 )
 
+function gamestate.init()
+	local g = setmetatable({}, gamestate)
+	return g
+end
+
 function gamestate:change_level(lvlnumber)
-	drystal.store('chronored', {level=lvlnumber, hard=self.hard})
+	--drystal.store('chronored', {level=lvlnumber, hard=self.hard})
 
 	if self.ship.body then
 		local oldlvl = ct.levels[self.level]
@@ -56,7 +62,8 @@ function gamestate:change_level(lvlnumber)
 
 	local lvl = ct.levels[self.level]
 	lvl:init()
-	self.ship:init(lvl, lvl.start.x, lvl.start.y)
+	
+	self.ship = ship:init(lvl, lvl.start.x, lvl.start.y)
 	self.ship.body.begin_collide = function(_, other)
 		if self.ship.dying then return end
 		if other == lvl.arrival.body then
@@ -186,6 +193,7 @@ function gamestate:update(dt)
 	if self.pause then
 		return
 	end
+	local lvl = ct.levels[self.level]
 	if self.arrived then
 		if self.level < ct.max_level then
 			ct.play('next_level')
@@ -201,11 +209,10 @@ function gamestate:update(dt)
 	if self.ship.die_ended then
 		self:change_level(self.level)
 	end
-	local lvl = ct.levels[self.level]
 	for _, t in ipairs(lvl.turrets) do
 		t:update(dt)
 	end
-	ship:update(dt)
+	self.ship:update(dt)
 	drystal.update_physics(dt)
 end
 
