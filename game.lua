@@ -122,8 +122,8 @@ function gamestate:draw()
 	drystal.set_color(lvl.background)
 	drystal.draw_background()
 
-	local sx = self.scrollx - self.ship:get_screen_x() + width/2
-	local sy = self.scrolly - self.ship:get_screen_y() + height/2
+	local sx = self.ship:get_screen_x() + self.scrollx - width/2
+	local sy = self.ship:get_screen_y() + self.scrolly - height/2
 
 	drystal.camera.x, drystal.camera.y = sx, sy
 	drystal.camera.zoom = zoom_level
